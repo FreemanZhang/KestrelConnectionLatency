@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +11,20 @@ namespace DelayApiServer.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly HttpClient httpClient;
+
+        public ValuesController(HttpClient httpClient)
+        {
+            this.httpClient = httpClient;
+        }
+
         // GET api/values
         [HttpGet]
         public async Task<ActionResult<IEnumerable<string>>> Get()
         {
             await Task.Delay(new Random().Next(3000, 5000));
+            await this.httpClient.GetAsync("https://www.google.com");
+
             return new string[] { "value1", "value2" };
         }
 
