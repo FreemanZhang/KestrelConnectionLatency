@@ -27,7 +27,13 @@ namespace DelayApiServer
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddSingleton<HttpClient>(new HttpClient());
+            services.AddSingleton<HttpClient>(
+                new HttpClient(
+                    new HttpClientHandler()
+                    {
+                        // Update this to a high number, say 1000 and the issue is fixed
+                        MaxConnectionsPerServer = 2
+                    }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

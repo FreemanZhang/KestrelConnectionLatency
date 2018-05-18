@@ -21,9 +21,8 @@ namespace DelayApiServer.Controllers
         // GET api/values
         [HttpGet]
         public async Task<ActionResult<IEnumerable<string>>> Get()
-        {
-            await Task.Delay(new Random().Next(3000, 5000));
-            await this.httpClient.GetAsync("https://www.google.com");
+        {   
+            await httpClient.GetAsync("https://auditservice.teams.microsoft.com/api/about/build");
 
             return new string[] { "value1", "value2" };
         }
